@@ -1,0 +1,26 @@
+{
+  "name": "servidor-pontuacao",
+  "version": "1.0.0",
+  "description": "\"Aplicacao para registro de pontos do sistema embarcado de contador digital de basquete \"",
+  "main": "teste.js",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "jquery": "^3.3.1",
+    "mongo": "^0.1.0",
+    "mongod": "^2.0.0",
+    "mongodb": "^3.1.10",
+    "monk": "^6.0.6",
+    "popper.js": "^1.14.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm run teste"
+  },
+  "keywords": [
+    "\"teste\"",
+    "\"basquete\""
+  ],
+  "author": "Hyuan Peixoto and Martonio Junior",
+  "license": "ISC"
+}
