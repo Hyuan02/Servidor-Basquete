@@ -4,8 +4,10 @@
   "description": "\"Aplicacao para registro de pontos do sistema embarcado de contador digital de basquete \"",
   "main": "teste.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "express-ejs-layouts": "^2.5.0",
     "jquery": "^3.3.1",
     "mongo": "^0.1.0",
     "mongod": "^2.0.0",

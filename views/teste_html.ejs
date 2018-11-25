@@ -27,22 +27,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Bashara Al'azap</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td>Zap Efron</td>
-                            <td>12</td>
-                        </tr>
-                        <tr>
-                            <td>Susana</td>
-                            <td>4</td>
-                        </tr>
-                        <tr>
-                            <td>ReptiLevi</td>
-                            <td>5</td>
-                        </tr>
+                       <% for(let i=0; i<listaBasquete.length; i++){%>
+                            <tr>
+                                <td>
+                                    <%- listaBasquete[i]._nome%>
+                                </td>
+                                <td>
+                                    <%- listaBasquete[i]._pontuacao%>
+                                </td>
+                            </tr>
+                            
+                       <%}%>
                     </tbody>
                 </table>
             </div>
