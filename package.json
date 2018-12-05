@@ -17,7 +17,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "npm run teste"
+    "test": "teste.js",
+    "start": "teste.js"
   },
   "keywords": [
     "\"teste\"",
