@@ -17,8 +17,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "teste.js",
-    "start": "teste.js"
+    "test": "node teste.js",
+    "start": "node teste.js"
   },
   "keywords": [
     "\"teste\"",
