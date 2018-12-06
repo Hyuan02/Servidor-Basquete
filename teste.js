@@ -69,7 +69,6 @@ app.get('/pontuacaoTemporaria', function (req, res) {
     setTimeout(function () {
       console.log("mudou");
       registroPonto = false;
-      basquete.drop();
     }, 100000)
   });
 });
