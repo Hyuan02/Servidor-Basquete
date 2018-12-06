@@ -23,9 +23,9 @@ app.get('/', function (req, res) {
       if (!er) {
         let bc = client.db();
         let pontuacaoR = bc.collection('pontuacaoRegistrada');
-        pontuacaoR.find(function (err, data) {
+        pontuacaoR.find(function(err, data) {
           if (!err) {
-            console.log(data[0]._pontuacao);
+            console.log(data[0]);
             res.render('teste_html', { listaBasquete: data });
           }
           else {
