@@ -3,6 +3,7 @@ var app = express();
 var ejs = require('ejs');
 
 const mongodb = require('mongodb');
+var MongoClient = mongodb.MongoClient;
 var url = "mongodb://admin:digitalshot2018@ds035816.mlab.com:35816/digitalshot";
 var registroPonto = false;
 var bodyParser = require('body-parser');
@@ -18,12 +19,13 @@ app.get('/', function (req, res) {
     res.render("cadastro_pontuacao");
   }
   else {
-    mongodb.connect(url, function (er, db) {
+    MongoClient.connect(url,(er, client) => {
       if (!er) {
-        console.log(db.pontuacaoRegistrada);
-        db.pontuacaoRegistrada.find({}, { sort: { _pontuacao: -1 } }, function (err, data) {
+        let bc = client.db();
+        let pontuacaoR = bc.collection('pontuacaoRegistrada');
+        pontuacaoR.find(function (err, data) {
           if (!err) {
-            //console.log(data);
+            console.log(data);
             res.render('teste_html', { listaBasquete: data });
           }
           else {
