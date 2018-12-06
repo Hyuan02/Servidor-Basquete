@@ -22,8 +22,7 @@ app.get('/', function (req, res) {
     MongoClient.connect(url,(er, client) => {
       if (!er) {
         let bc = client.db();
-        let pontuacaoR = bc.collection('pontuacaoRegistrada');
-        pontuacaoR.find(function (err, data) {
+        bc.pontuacaoRegistrada.find(function (err, data) {
           if (!err) {
             console.log(data);
             res.render('teste_html', { listaBasquete: data });
