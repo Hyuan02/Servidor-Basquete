@@ -45,17 +45,20 @@ app.get('/', function (req, res) {
 });
 
 
+
 app.post('/pontuacaoTemporaria', function (req, res) {
-  let basquete = db.get('pontuacaoTemporaria');
-  basquete.insert({ _pontuacao: req.body.points }).then(function () {
-    console.log("Registrado!");
-    registroPonto = true;
-    res.redirect('/');
-    setTimeout(function () {
-      console.log("mudou");
-      registroPonto = false;
-      basquete.drop();
-    }, 100000)
+  MongoClient.connect(url, (er, client) => {
+    let bc = client.db("digitalshot");
+    let pontuacaoR = bc.collection('pontuacaoTemporaria');
+    pontuacaoR.insert({ _pontuacao: req.body.points}).then(function () {
+      console.log("Registrado!");
+      registroPonto = true;
+      res.redirect('/');
+      setTimeout(function () {
+        console.log("mudou");
+        registroPonto = false;
+      }, 100000)
+    });
   });
 });
 
@@ -77,18 +80,21 @@ app.get('/pontuacaoTemporaria', function (req, res) {
 
 app.post('/pontuacaoBasquete', function (req, res) {
   let nomePontuador = req.body.nome;
-  let basquete = db.get('pontuacaoRegistrada');
-  let pontoTemporario = db.get('pontuacaoTemporaria');
-  pontoTemporario.findOne({}, { sort: { id: 1 }, }, function (err, data) {
-    if (!err) {
-      let pontuacao = parseInt(data._pontuacao);
-      basquete.insert({ _nome: nomePontuador, _pontuacao: pontuacao }).then(function () {
-        pontoTemporario.drop();
-        registroPonto = false;
-        res.redirect('/');
-      });
-    }
-  });
+  MongoClient.connect(url, (er, client) => {
+    let bc = client.db("digitalshot");
+    let basquete = bc.collection('pontuacaoRegistrada');
+    let pontoTemporario = bc.collection('pontuacaoTemporaria');
+    pontoTemporario.findOne({}, { sort: { id: 1 }, }, function (err, data) {
+      if (!err) {
+        let pontuacao = parseInt(data._pontuacao);
+        basquete.insert({ _nome: nomePontuador, _pontuacao: pontuacao }).then(function () {
+          pontoTemporario.drop();
+          registroPonto = false;
+          res.redirect('/');
+        });
+      }
+    });
+  })
 });
 
 
