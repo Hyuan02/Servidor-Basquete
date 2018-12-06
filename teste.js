@@ -59,6 +59,21 @@ app.post('/pontuacaoTemporaria', function (req, res) {
   });
 });
 
+app.get('/pontuacaoTemporaria', function (req, res) {
+  let bc = client.db("digitalshot");
+  let pontuacaoR = bc.collection('pontuacaoTemporaria');
+  pontuacaoR.insert({ _pontuacao: 9 }).then(function () {
+    console.log("Registrado!");
+    registroPonto = true;
+    res.redirect('/');
+    setTimeout(function () {
+      console.log("mudou");
+      registroPonto = false;
+      basquete.drop();
+    }, 100000)
+  });
+});
+
 app.post('/pontuacaoBasquete', function (req, res) {
   let nomePontuador = req.body.nome;
   let basquete = db.get('pontuacaoRegistrada');
@@ -66,7 +81,7 @@ app.post('/pontuacaoBasquete', function (req, res) {
   pontoTemporario.findOne({}, { sort: { id: 1 }, }, function (err, data) {
     if (!err) {
       let pontuacao = parseInt(data._pontuacao);
-      basquete.insert({ _nome: nomePontuador, _pontuacao: pontuacao }).then(function () {
+      basquete.insert({ _nome: nomePontuador, _pontuacao: pontuacao}).then(function () {
         pontoTemporario.drop();
         registroPonto = false;
         res.redirect('/');
