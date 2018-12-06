@@ -21,6 +21,7 @@ app.get('/', function (req, res) {
   else {
     MongoClient.connect(url,(er, client) => {
       if (!er) {
+        console.log(client.db("digitalShot"));
         let bc = client.db("digitalshot");
         let pontuacaoR = bc.collection('pontuacaoRegistrada');
         pontuacaoR.find(function(err, data) {
