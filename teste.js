@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
 var ejs = require('ejs');
-const db = require('monk')('localhost/bancobasquete');
+
+const db = require('monk')('mongodb://<admin>:<digitalshot2018>@ds035816.mlab.com:35816/digitalshot');
 var registroPonto = false;
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
