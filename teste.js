@@ -19,12 +19,12 @@ app.get('/', function (req, res) {
     res.render("cadastro_pontuacao");
   }
   else {
-    MongoClient.connect(url,(er, client) => {
+    MongoClient.connect(url, (er, client) => {
       if (!er) {
         console.log(client.db("digitalshot"));
         let bc = client.db("digitalshot");
         let pontuacaoR = bc.collection('pontuacaoRegistrada');
-        pontuacaoR.find(function(err, data) {
+        pontuacaoR.find(function (err, data) {
           if (!err) {
             console.log(data[0]);
             res.render('teste_html', { listaBasquete: data });
@@ -60,16 +60,18 @@ app.post('/pontuacaoTemporaria', function (req, res) {
 });
 
 app.get('/pontuacaoTemporaria', function (req, res) {
-  let bc = client.db("digitalshot");
-  let pontuacaoR = bc.collection('pontuacaoTemporaria');
-  pontuacaoR.insert({ _pontuacao: 9 }).then(function () {
-    console.log("Registrado!");
-    registroPonto = true;
-    res.redirect('/');
-    setTimeout(function () {
-      console.log("mudou");
-      registroPonto = false;
-    }, 100000)
+  MongoClient.connect(url, (er, client) => {
+    let bc = client.db("digitalshot");
+    let pontuacaoR = bc.collection('pontuacaoTemporaria');
+    pontuacaoR.insert({ _pontuacao: 9 }).then(function () {
+      console.log("Registrado!");
+      registroPonto = true;
+      res.redirect('/');
+      setTimeout(function () {
+        console.log("mudou");
+        registroPonto = false;
+      }, 100000)
+    });
   });
 });
 
@@ -80,7 +82,7 @@ app.post('/pontuacaoBasquete', function (req, res) {
   pontoTemporario.findOne({}, { sort: { id: 1 }, }, function (err, data) {
     if (!err) {
       let pontuacao = parseInt(data._pontuacao);
-      basquete.insert({ _nome: nomePontuador, _pontuacao: pontuacao}).then(function () {
+      basquete.insert({ _nome: nomePontuador, _pontuacao: pontuacao }).then(function () {
         pontoTemporario.drop();
         registroPonto = false;
         res.redirect('/');
