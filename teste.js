@@ -63,6 +63,6 @@ app.post('/pontuacaoBasquete', function(req,res){
 });
 
 
-app.listen(8023, function () {
-  console.log('Example app listening on port 80!');
+app.listen(process.env.PORT || 4000, function () {
+  console.log('Example app listening on port 4000!');
 });
